@@ -22,6 +22,7 @@ import java.util.Collections;
 @EnableWebSecurity
 public class AppConfig {
 
+    @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(Authorize -> Authorize
@@ -32,7 +33,7 @@ public class AppConfig {
                 .csrf(csrf->csrf.disable())
                 .cors(cors->cors.configurationSource(corsConfigurationSource()));
 
-        return null;
+        return http.build();
     }
 
     private CorsConfigurationSource corsConfigurationSource() {
